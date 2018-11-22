@@ -4,22 +4,41 @@ require 'nokogiri'
 require 'pry'
 
 human_readable = {
-  "greatsword" => "Greatsword",
-  "longsword" => "Longsword",
-  "sword" => "Sword & Shield",
-  "dualblades" => "Dual Blades",
-  "hammer" => "Hammer",
-  "huntinghorn" => "Hunting Horn",
-  "lance" => "Lance",
-  "gunlance" => "Gunlance",
-  "switchaxe" => "Switch Axe",
-  "chargeblade" => "Charge Blade",
-  "insectglaive" => "Insect Glaive",
-  "bow" => "Bow",
-  "lightbowgun" => "Light Bowgun",
-  "heavybowgun" => "Heavy Bowgun",
-}
+  'greatsword' => 'Greatsword',
+  'longsword' => 'Longsword',
+  'sword' => 'Sword & Shield',
+  'dualblades' => 'Dual Blades',
+  'hammer' => 'Hammer',
+  'huntinghorn' => 'Hunting Horn',
+  'lance' => 'Lance',
+  'gunlance' => 'Gunlance',
+  'switchaxe' => 'Switch Axe',
+  'chargeblade' => 'Charge Blade',
+  'insectglaive' => 'Insect Glaive',
+  'bow' => 'Bow',
+  'lightbowgun' => 'Light Bowgun',
+  'heavybowgun' => 'Heavy Bowgun',
+}.freeze
 
+weapon_names = [
+  'greatsword',
+  'longsword',
+  'sword',
+  'dualblades',
+  'hammer',
+  'huntinghorn',
+  'lance',
+  'gunlance',
+  'switchaxe',
+  'chargeblade',
+  'insectglaive',
+  'bow',
+  'lightbowgun',
+  'heavybowgun',
+].freeze
+
+# Used to get the initial list of Kiranico specific weapon names.
+# This isn't really needed anymore.
 def weapon_names_from_kiranico
   doc = Nokogiri::HTML(open("https://mhgu.kiranico.com/"))
   weapons_xpath = '/html/body/div[1]/div[2]/div[1]/div[2]/div/div/div/div[1]/table[2]'
@@ -29,8 +48,10 @@ def weapon_names_from_kiranico
   end
 end
 
-weapon_names_from_kiranico().each do |name|
+# Collect data for every weapon type, e.g. https://mhgu.kirancio.com/greatsword
+weapon_names.each do |name|
   puts "Collecting data for weapon #{human_readable[name]}"
+
   weapon_table_url = "https://mhgu.kiranico.com/#{name}"
   weapon_table_doc = Nokogiri::HTML(open(weapon_table_url))
   table_rows = weapon_table_doc.css('#list td[rowspan]')
@@ -44,8 +65,11 @@ weapon_names_from_kiranico().each do |name|
   # Iron Sword: ...
   # Massacre Blade: ..
   weapon_set_docs = table_rows.map { |e| e.css('div').first.css('a').first[:href] }
+  puts "Found #{weapon_set_docs.length} #{human_readable[name]} weapon sets"
 
-  puts "Found #{weapon_set_docs.length} #{human_readable[name]}s"
+  # For each weapon set, navigate to the link and collect all the relevant data for
+  # every weapon on the page.
+  # e.g. Navigate to https://mhgu.kiranico.com/weapon/34ed4
+  # Get the data for Petrified Blade LV1 - LV7, Scholarly Blade LV8-LV10, Sophos Blade LV11
+  # TODO: Implement this shit
 end
-
-binding.pry

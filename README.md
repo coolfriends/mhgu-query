@@ -9,7 +9,7 @@ Download this repo and install
     $ bundle install
 
 ## Usage
-TODO: Build the JSON db.
+WIP: Build the JSON db. Right now it just prints how many weapon sets it found :)
 
     $ bundle exec bin/create_db
 
