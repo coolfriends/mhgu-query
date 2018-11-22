@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+require 'open-uri'
+require 'nokogiri'
+require 'pry'
+
+human_readable = {
+  "greatsword" => "Greatsword",
+  "longsword" => "Longsword",
+  "sword" => "Sword & Shield",
+  "dualblades" => "Dual Blades",
+  "hammer" => "Hammer",
+  "huntinghorn" => "Hunting Horn",
+  "lance" => "Lance",
+  "gunlance" => "Gunlance",
+  "switchaxe" => "Switch Axe",
+  "chargeblade" => "Charge Blade",
+  "insectglaive" => "Insect Glaive",
+  "bow" => "Bow",
+  "lightbowgun" => "Light Bowgun",
+  "heavybowgun" => "Heavy Bowgun",
+}
+
+def weapon_names_from_kiranico
+  doc = Nokogiri::HTML(open("https://mhgu.kiranico.com/"))
+  weapons_xpath = '/html/body/div[1]/div[2]/div[1]/div[2]/div/div/div/div[1]/table[2]'
+  weapon_elements = doc.search(weapons_xpath).first.css("a")
+  weapon_elements.map do |e|
+    e[:href].split('/').last
+  end
+end
+
+weapon_names_from_kiranico().each do |name|
+  puts "Collecting data for weapon #{human_readable[name]}"
+  weapon_table_url = "https://mhgu.kiranico.com/#{name}"
+  weapon_table_doc = Nokogiri::HTML(open(weapon_table_url))
+  table_rows = weapon_table_doc.css('#list td[rowspan]')
+
+  # Collect the first url for every set of weapons,
+  # It is easier to collect the individual weapon data from the first weapon in
+  # a set than to collect it from each weapon table.
+  #
+  # e.g. For GreatSword:
+  # Petrified Blade: https://mhgu.kiranico.com/weapon/34ed4
+  # Iron Sword: ...
+  # Massacre Blade: ..
+  weapon_set_docs = table_rows.map { |e| e.css('div').first.css('a').first[:href] }
+
+  puts "Found #{weapon_set_docs.length} #{human_readable[name]}s"
+end
+
+binding.pry
