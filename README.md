@@ -9,10 +9,6 @@ Download this repo and install
     $ bundle install
 
 ## Usage
-WIP: Build the JSON db. Right now it just prints how many weapon sets it found :)
-
-    $ bundle exec bin/create_db
-
 Start the server
 
     $ bundle exec puma config.ru -p 3000
@@ -40,10 +36,18 @@ Make your changes and commit them
 Push your changes to your feature branch
 
     $ git push origin my-cool-feature
+    
+Enter DB console session
 
+    $ bundle exec bin/db_console
+    [1] pry(main)> DB[:weapons].count
+    => 10877
 
 Then make your pull request in GitHub.
 [See this for more information](https://yangsu.github.io/pull-request-tutorial/)
+
+## Acknowledgments
+Thanks to JoeLago for the MHGU Database pulled from https://github.com/JoeLago/MHGUDB-iOS
 
 ## License
 

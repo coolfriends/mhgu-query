@@ -32,6 +32,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "roda"
   spec.add_dependency "nokogiri"
+  spec.add_dependency "sequel"
+  spec.add_dependency "sqlite3"
 
   spec.add_development_dependency "puma"
   spec.add_development_dependency "bundler"
