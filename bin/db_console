@@ -2,6 +2,5 @@
 require 'sequel'
 require 'pry'
 
-# TODO: Update documentation and push
 DB = Sequel.connect('sqlite://mhgu.db')
 binding.pry
