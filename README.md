@@ -37,6 +37,10 @@ Push your changes to your feature branch
 
     $ git push origin my-cool-feature
     
+Run the tests
+
+    $ rspec
+    
 Enter DB console session
 
     $ bundle exec bin/db_console
