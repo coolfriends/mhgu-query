@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# coding: utf-8
 require 'open-uri'
 require 'nokogiri'
 require 'pry'
@@ -64,8 +65,26 @@ weapon_names.each do |name|
   # Petrified Blade: https://mhgu.kiranico.com/weapon/34ed4
   # Iron Sword: ...
   # Massacre Blade: ..
-  weapon_set_docs = table_rows.map { |e| e.css('div').first.css('a').first[:href] }
-  puts "Found #{weapon_set_docs.length} #{human_readable[name]} weapon sets"
+  weapon_set_urls = table_rows.map { |e| e.css('div').first.css('a').first[:href] }
+  puts "Found #{weapon_set_urls.length} #{human_readable[name]} weapon sets"
+  weapon_set_urls.each do |url|
+    doc = Nokogiri::HTML(open(url))
+    table = doc.search('/html/body/div[1]/div[2]/div[1]/div[2]/div[2]/div/div[3]/div/div/table')
+    table.css("tr").each do |weapon_row|
+      columns = weapon_row.css("td")
+      weapon_name = columns[0].text
+      damage = columns[1].text.to_i
+
+      # Column 2 has affinity and elemental info. gotta wait on that for now
+      # Also skipping sharpness cause it's gonna be a funky ride
+      # sharpness = columns[3]
+
+      # I don't think think is a standard ASCII character.
+      slots = columns[4].count('◯')
+      rarity = columns[5].text.strip.split[-1].to_i
+      binding.pry
+    end
+  end
 
   # For each weapon set, navigate to the link and collect all the relevant data for
   # every weapon on the page.
