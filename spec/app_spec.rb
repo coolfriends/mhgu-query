@@ -36,7 +36,7 @@ RSpec.describe MHGUQueryApp do
   end
 
   it 'gets weapons by element' do
-    get 'api/v1/weapons?element=Fire', { element: "Fire"}
+    get 'api/v1/weapons', { element: "Fire"}
     expect(last_response.status).to eq(200)
 
     json = JSON.parse(last_response.body)
@@ -44,6 +44,20 @@ RSpec.describe MHGUQueryApp do
 
     json["weapons"].each do |weapon|
       found = weapon["element"] == "Fire" || weapon["element_2"] == "Fire"
+      expect(found).to be(true)
+    end
+  end
+
+  it 'gets weapons by type and element' do
+    get 'api/v1/weapons', { element: "Fire", wtype: "Hunting Horn"}
+    expect(last_response.status).to eq(200)
+
+    json = JSON.parse(last_response.body)
+    expect(json).to include("weapons")
+
+    json["weapons"].each do |weapon|
+      found = weapon["element"] == "Fire" || weapon["element_2"] == "Fire"
+      found = found && weapon["wtype"] == "Hunting Horn"
       expect(found).to be(true)
     end
   end
