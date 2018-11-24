@@ -61,4 +61,44 @@ RSpec.describe MHGUQueryApp do
       expect(found).to be(true)
     end
   end
+
+  it 'gets weapons by multiple types and multiple elements' do
+    get 'api/v1/weapons', { element: "Fire,Water", wtype: "Hunting Horn,Great Sword"}
+    expect(last_response.status).to eq(200)
+
+    json = JSON.parse(last_response.body)
+    expect(json).to include("weapons")
+
+    found_greatsword = false
+    found_hunting_horn = false
+    found_water = false
+    found_fire = false
+    json["weapons"].each do |weapon|
+      element = weapon["element"]
+      element_2 = weapon["element_2"]
+      wtype = weapon["wtype"]
+      if element == "Fire" || element_2 == "Fire"
+        found_fire = true
+      end
+      if element == "Water" || element_2 == "Water"
+        found_water = true
+      end
+      if wtype == "Hunting Horn"
+        found_hunting_horn = true
+      end
+      if wtype == "Great Sword"
+        found_greatsword = true
+      end
+    end
+    found = [found_greatsword, found_hunting_horn, found_water, found_fire]
+    expect(found).to all(be true)
+  end
+
+  it 'gets meta data' do
+    get 'api/v1/weapons/meta'
+    expect(last_response.status).to eq(200)
+
+    json = JSON.parse(last_response.body)
+    expect(json).to include("query_parameters", "fields")
+  end
 end

@@ -12,6 +12,29 @@ Download this repo and install
 Start the server
 
     $ bundle exec puma config.ru -p 3000
+    
+### GET /api/v1/weapons
+A route for obtaining data about MHGU weapons
+#### Examples
+Get all weapons
+
+    http://localhost:3000/api/v1/weapons
+    
+Get all Great Swords
+
+    http://localhost:3000/api/v1/weapons?wtype=Great Sword
+
+Get all Great Swords and Hunting Horns with the Poison or Fire element
+
+    http://localhost:3000/api/v1/weapons?wtype=Great Sword,Hunting Horn&element=Poison,Fire
+
+### GET /api/v1/weapons/meta
+A route for obtaining meta level data about MHGU weapons including query parameters and the fields for a Weapon.
+
+#### Examples
+Get the meta data
+
+    http://localhost:3000/api/v1/weapons/meta
 
 ## Development
 Setup [RVM](https://rvm.io/) and install a new Ruby version (>= 2.3).
@@ -44,7 +67,7 @@ Run the tests
 Enter DB console session
 
     $ bundle exec bin/db_console
-    [1] pry(main)> DB[:weapons].count
+    [1] pry(main)> Weapon.count
     => 10877
 
 Then make your pull request in GitHub.

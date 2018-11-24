@@ -2,6 +2,7 @@
 require 'sequel'
 require 'pry'
 require_relative '../lib/mhgu_query/models/weapon'
+Weapon = MHGUQuery::Models::Weapon
 
 DB = Sequel.connect('sqlite://mhgu.db')
 binding.pry

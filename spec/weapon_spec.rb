@@ -3,7 +3,7 @@ require 'spec_helper'
 
 
 RSpec.describe MHGUQuery::Models::Weapon do
-  describe '#weapon_types' do
+  describe '#wtype_values' do
     it 'returns the correct types' do
       expected = [
         "Great Sword",
@@ -21,11 +21,11 @@ RSpec.describe MHGUQuery::Models::Weapon do
         "Insect Glaive",
         "Charge Blade"
       ].freeze
-      expect(MHGUQuery::Models::Weapon.weapon_types).to eq(expected)
+      expect(MHGUQuery::Models::Weapon.wtype_values).to eq(expected)
     end
   end
 
-  context '#element_types' do
+  context '#element_values' do
     it 'returns the correct types' do
       expected = [
         "",
@@ -39,7 +39,7 @@ RSpec.describe MHGUQuery::Models::Weapon do
         "Sleep",
         "Dragon"
       ].freeze
-      expect(MHGUQuery::Models::Weapon.element_types).to eq(expected)
+      expect(MHGUQuery::Models::Weapon.element_values).to eq(expected)
     end
   end
 end
