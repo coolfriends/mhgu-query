@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Include missing attributes on the /api/v1/weapons endpoint
 ### Added
 - Advanced URL querying e.g. /api/v1/weapons?element=Fire,Water&wtype=Hunting Horn,Great Sword
 - Implementation of the /api/v1/weapons/meta endpoint with metadata about the weapon model.

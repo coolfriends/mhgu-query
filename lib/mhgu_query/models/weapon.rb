@@ -15,6 +15,10 @@ module MHGUQuery
           #     puts w[:name], w.wtype  # Note that the name field must be referenced like a hash
           #   end
           #
+          # @reference
+          #   The weapons table needs to be joined with the items table to get the name column, among other
+          #   important columns.
+          #   https://github.com/JoeLago/MHGUDB-iOS/blob/master/MHGDB/Model/Weapon.swift#L352-L374
           left_join(:items, _id: :_id)
         end
       end
