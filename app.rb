@@ -42,7 +42,7 @@ class MHGUQueryApp < Roda
                 end
                 qs = qs.where { Sequel.|(*element_statement) }
               end
-              { weapons: qs.left_join(:items, _id: :_id).map(&:to_hash) }
+              { weapons: qs.with_items_join.map(&:to_hash) }
             end
           end
 
