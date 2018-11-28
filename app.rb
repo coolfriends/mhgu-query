@@ -34,6 +34,7 @@ class MHGUQueryApp < Roda
                 wtype_statement = wtypes.map { |wtype| { wtype: wtype } }
                 qs = qs.where { Sequel.|(*wtype_statement) }
               end
+
               if elements.any?
                 element_statement = []
                 elements.each do |element|

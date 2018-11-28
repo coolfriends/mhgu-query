@@ -1,9 +1,10 @@
 require_relative '../lib/mhgu_query/models/weapon'
+require_relative '../lib/mhgu_query/models/item'
 require 'spec_helper'
 
 
 RSpec.describe MHGUQuery::Models::Weapon do
-  describe '#wtype_values' do
+  context '#wtype_values' do
     it 'returns the correct types' do
       expected = [
         "Great Sword",
