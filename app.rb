@@ -34,6 +34,7 @@ class MHGUQueryApp < Roda
                 wtype_statement = wtypes.map { |wtype| { wtype: wtype } }
                 qs = qs.where { Sequel.|(*wtype_statement) }
               end
+
               if elements.any?
                 element_statement = []
                 elements.each do |element|
@@ -42,7 +43,7 @@ class MHGUQueryApp < Roda
                 end
                 qs = qs.where { Sequel.|(*element_statement) }
               end
-              { weapons: qs.with_items_join.map(&:to_hash) }
+              { weapons: qs.map(&:to_hash) }
             end
           end
 
