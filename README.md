@@ -1,4 +1,8 @@
 # mhgu-query
+[![Build Status](https://travis-ci.com/coolfriends/mhgu-query.svg?branch=master)](https://travis-ci.com/coolfriends/mhgu-query)
+[![Maintainability](https://api.codeclimate.com/v1/badges/4332a11f04a700af1e41/maintainability)](https://codeclimate.com/github/coolfriends/mhgu-query/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/4332a11f04a700af1e41/test_coverage)](https://codeclimate.com/github/coolfriends/mhgu-query/test_coverage)
+
 
 Perform simple and advanced queries on MHGU data.
 
