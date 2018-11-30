@@ -1,5 +1,8 @@
 require "bundler/setup"
 require "rspec/core"
+require 'coveralls'
+require 'simplecov'
+require 'simplecov-console'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -12,3 +15,12 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+Coveralls.wear!
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+  [
+    SimpleCov::Formatter::Console,
+  ]
+)
+SimpleCov.start

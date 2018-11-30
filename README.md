@@ -66,7 +66,7 @@ Push your changes to your feature branch
     
 Run the tests
 
-    $ rspec
+    $ rake
     
 Enter DB console session
 
