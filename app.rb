@@ -28,22 +28,15 @@ class MHGUQueryApp < Roda
             r.get do
               wtypes = r.params.fetch('wtype', '').split(',')
               elements = r.params.fetch('element', '').split(',')
-              qs = MHGUQuery::Models::Weapon.dataset
+              ds = MHGUQuery::Models::Weapon.dataset
 
-              if wtypes.any?
-                wtype_statement = wtypes.map { |wtype| { wtype: wtype } }
-                qs = qs.where { Sequel.|(*wtype_statement) }
-              end
-
+              ds = ds.where({ wtype: wtypes }) if wtypes.any?
               if elements.any?
-                element_statement = []
-                elements.each do |element|
-                  element_statement.push({element: element})
-                  element_statement.push({element_2: element})
+                ds = ds.where do
+                  Sequel.|({ element: elements }, { element_2: elements })
                 end
-                qs = qs.where { Sequel.|(*element_statement) }
               end
-              { weapons: qs.map(&:to_hash) }
+              { weapons: ds.map(&:to_hash) }
             end
           end
 
