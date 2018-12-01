@@ -56,18 +56,18 @@ class MHGUQueryApp < Roda
                   parameter: "wtype",
                   fields: ["wtype"],
                   values: MHGUQuery::Models::Weapon.wtype_values,
-                  examples: [
-                    "Fire",
-                    "Water,Fire,Poison"
+                  usage: [
+                    "/api/v1/weapons?Hunting Horn",
+                    "/api/v1/weapons?Great Sword,Hunting Horn,Bow"
                   ]
                 },
                 {
                   parameter: "element",
                   fields: ["element", "element_2"],
                   values: MHGUQuery::Models::Weapon.element_values,
-                  examples: [
-                    "Hunting Horn",
-                    "Great Sword,Hunting Horn,Bow"
+                  usage: [
+                    "/api/v1/weapons?Fire",
+                    "/api/v1/weapons?Water,Fire,Poison"
                   ]
                 }
               ]

@@ -17,8 +17,7 @@ module MHGUQuery
           ds = ds.where({ wtype: wtypes }) unless wtypes.empty?
           unless elements.empty?
             ds = ds.where do
-              Sequel.|({ element: elements }, { element_2: elements })
-            end
+              Sequel.|({ element: elements }, { element_2: elements }) end
           end
           ds.with_item_details.all
         end
