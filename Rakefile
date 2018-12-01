@@ -7,6 +7,6 @@ RSpec::Core::RakeTask.new do |t|
   t.verbose = false
 end
 
+Coveralls::RakeTask.new
 task default: :spec
 
-Coveralls::RakeTask.new
