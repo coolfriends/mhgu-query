@@ -4,6 +4,13 @@ require 'spec_helper'
 
 
 RSpec.describe MHGUQuery::Models::Weapon do
+  context '#with_item_details' do
+    it 'has name and description fields' do
+      weapon = MHGUQuery::Models::Weapon.with_item_details.first
+      expect(weapon[:name]).not_to be_nil
+    end
+  end
+
   context '#wtype_values' do
     it 'returns the correct types' do
       expected = [

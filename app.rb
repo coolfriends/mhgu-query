@@ -28,14 +28,10 @@ class MHGUQueryApp < Roda
             r.get do
               wtypes = r.params.fetch('wtype', '').split(',')
               elements = r.params.fetch('element', '').split(',')
-              ds = MHGUQuery::Models::Weapon.dataset
-
-              ds = ds.where({ wtype: wtypes }) if wtypes.any?
-              if elements.any?
-                ds = ds.where do
-                  Sequel.|({ element: elements }, { element_2: elements })
-                end
-              end
+              ds = MHGUQuery::Models::Weapon.weapons(
+                wtypes: wtypes,
+                elements: elements,
+              )
               { weapons: ds.map(&:to_hash) }
             end
           end
@@ -60,18 +56,18 @@ class MHGUQueryApp < Roda
                   parameter: "wtype",
                   fields: ["wtype"],
                   values: MHGUQuery::Models::Weapon.wtype_values,
-                  examples: [
-                    "Fire",
-                    "Water,Fire,Poison"
+                  usage: [
+                    "/api/v1/weapons?Hunting Horn",
+                    "/api/v1/weapons?Great Sword,Hunting Horn,Bow"
                   ]
                 },
                 {
                   parameter: "element",
                   fields: ["element", "element_2"],
                   values: MHGUQuery::Models::Weapon.element_values,
-                  examples: [
-                    "Hunting Horn",
-                    "Great Sword,Hunting Horn,Bow"
+                  usage: [
+                    "/api/v1/weapons?Fire",
+                    "/api/v1/weapons?Water,Fire,Poison"
                   ]
                 }
               ]

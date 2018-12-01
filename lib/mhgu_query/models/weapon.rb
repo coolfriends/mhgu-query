@@ -3,7 +3,25 @@ require_relative '../db'
 module MHGUQuery
   module Models
     class Weapon < Sequel::Model
+      dataset_module do
+        def with_item_details
+          join(:items, _id: :_id)
+        end
+
+      end
+
       class << self
+
+        def weapons(wtypes: [], elements: [])
+          ds = dataset
+          ds = ds.where({ wtype: wtypes }) unless wtypes.empty?
+          unless elements.empty?
+            ds = ds.where do
+              Sequel.|({ element: elements }, { element_2: elements }) end
+          end
+          ds.with_item_details.all
+        end
+
         def wtype_values
           [
             "Great Sword",

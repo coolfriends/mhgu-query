@@ -18,8 +18,9 @@ RSpec.describe MHGUQueryApp do
 
     json = JSON.parse(last_response.body)
     expect(json).to include("weapons")
-
     expect(json["weapons"].count).to eq(10877)
+    expect(json["weapons"][0].keys).to include("name")
+    expect(json["weapons"][0].keys).to include("description")
   end
 
   it 'gets weapons by type' do
