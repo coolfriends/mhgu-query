@@ -5,7 +5,7 @@ module MHGUQuery
     class Weapon < Sequel::Model
       dataset_module do
         def with_item_details
-          join(:items, _id: Sequel[:weapons][:_id])
+          join(:items, _id: :_id)
         end
 
       end
