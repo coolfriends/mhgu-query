@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+require 'unirest'
+require 'optparse'
+
+
+pretty = false
+options = OptionParser.new do |opts|
+  opts.banner = "A client for interacting with the mhgu-query app.\n\n"
+  opts.separator "Expects you to be running on http://localhost:3000.\n\n"
+  opts.separator "Examples:"
+  opts.separator "  Print all weapons:"
+  opts.separator "    bundle exec bin/client\n"
+
+  opts.on("-p", "--pretty", "run the given code and exit") do
+    pretty = true
+  end
+end
+options.parse!
+
+stuff = Unirest.get 'http://localhost:3000/api/v1/weapons',
+                    headers:{ "Accept" => "application/json" }
+
+s = pretty ? JSON.pretty_generate(stuff.body) : stuff.body
+puts s
