@@ -16,7 +16,13 @@ Download this repo and install
 ## Usage
 Start the server
 
-    $ bundle exec puma config.ru -p 3000
+    $ bundle exec bin/server
+
+Interact with the server using the client
+
+    $ bundle exec bin/server
+    
+See below for details on the various endpoints.
     
 ### GET /api/v1/weapons
 A route for obtaining data about MHGU weapons
