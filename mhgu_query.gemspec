@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "sequel"
   spec.add_dependency "sqlite3"
   spec.add_dependency "puma"
+  spec.add_dependency "rack-cors"
 
   spec.add_development_dependency "coveralls"
   spec.add_development_dependency "simplecov"
