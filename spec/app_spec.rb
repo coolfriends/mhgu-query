@@ -95,6 +95,31 @@ RSpec.describe MHGUQueryApp do
     expect(found).to all(be true)
   end
 
+  it 'gets the final version of all weapons' do
+    get 'api/v1/weapons', { final: 1 }
+    expect(last_response.status).to eq(200)
+
+    json = JSON.parse(last_response.body)
+    expect(json).to include("weapons")
+
+    json["weapons"].each do |w|
+      expect(w["final"]).to eq(1)
+    end
+  end
+
+  it 'gets the final version of one weapon type' do
+    get 'api/v1/weapons', { wtype: "Hunting Horn", final: 1 }
+    expect(last_response.status).to eq(200)
+
+    json = JSON.parse(last_response.body)
+    expect(json).to include("weapons")
+
+    json["weapons"].each do |w|
+      expect(w["final"]).to eq(1)
+      expect(w["wtype"]).to eq("Hunting Horn")
+    end
+  end
+
   it 'gets meta data' do
     get 'api/v1/weapons/meta'
     expect(last_response.status).to eq(200)
