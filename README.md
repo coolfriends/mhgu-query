@@ -39,6 +39,10 @@ Get all Great Swords and Hunting Horns with the Poison or Fire element
 
     http://localhost:3000/api/v1/weapons?wtype=Great Sword,Hunting Horn&element=Poison,Fire
 
+Get only the final version of every Great Sword
+
+    http://localhost:3000/api/v1/weapons?wtype=Great Sword&final=1
+
 ### GET /api/v1/weapons/meta
 A route for obtaining meta level data about MHGU weapons including query parameters and the fields for a Weapon.
 
