@@ -30,6 +30,10 @@ RSpec.describe MHGUQuery::Models::Weapon do
     end
 
     it 'only returns the final version of a weapon type' do
+      weapons = MHGUQuery::Models::Weapon.final_only.where({ wtype: "Bow" }).all
+      weapons.each do |w|
+        expect(w.final).to be(1)
+      end
     end
   end
 
