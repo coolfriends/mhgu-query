@@ -28,9 +28,13 @@ class MHGUQueryApp < Roda
             r.get do
               wtypes = r.params.fetch('wtype', '').split(',')
               elements = r.params.fetch('element', '').split(',')
+              final = r.params.fetch('final', nil)
+              puts final
+
               ds = MHGUQuery::Models::Weapon.weapons(
                 wtypes: wtypes,
                 elements: elements,
+                final: final
               )
               { weapons: ds.map(&:to_hash) }
             end

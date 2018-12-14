@@ -8,17 +8,22 @@ module MHGUQuery
           join(:items, _id: :_id)
         end
 
+        def final_only
+          where({ final: 1 })
+        end
       end
 
       class << self
 
-        def weapons(wtypes: [], elements: [])
+        def weapons(wtypes: [], elements: [], final: nil)
           ds = dataset
           ds = ds.where({ wtype: wtypes }) unless wtypes.empty?
           unless elements.empty?
             ds = ds.where do
               Sequel.|({ element: elements }, { element_2: elements }) end
           end
+
+          ds = ds.final_only if final
           ds.with_item_details.all
         end
 

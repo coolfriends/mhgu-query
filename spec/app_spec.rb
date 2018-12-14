@@ -104,7 +104,6 @@ RSpec.describe MHGUQueryApp do
 
     json["weapons"].each do |w|
       expect(w["final"]).to eq(1)
-      expect(w["wtype"]).to eq("Hunting Horn")
     end
   end
 
