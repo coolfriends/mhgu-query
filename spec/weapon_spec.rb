@@ -11,6 +11,18 @@ RSpec.describe MHGUQuery::Models::Weapon do
     end
   end
 
+  context '#final_only' do
+    it 'only returns the final version of all weapons' do
+      weapons = MHGUQuery::Models::weapon.final_only.all
+      weapons.each do |w|
+        expect(w.final).to be(1)
+      end
+    end
+
+    it 'only returns the final version of a weapon type' do
+    end
+  end
+
   context '#wtype_values' do
     it 'returns the correct types' do
       expected = [
